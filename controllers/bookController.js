@@ -2,22 +2,9 @@
 
 const Book = require('../models/book');
 
-// Get book object
+// Get books object
 function getBooks(req, res) {
-  // Finds all books in the database with those params
-  Book.find(req.params, (error, books) => {
-    if (error) return res.status(500).send({ error });
-
-    return res.status(200).send(books);
-  });
-}
-
-// Get book object by ISBN
-function getBook(req, res) {
-  const { isbn } = req.params;
-
-  // Finds the book with the ISBN provided
-  Book.findOne({ isbn }, (error, book) => {
+  Book.find(req.query, (error, book) => {
     if (error) return res.status(404).send({ message: 'No books found', error });
 
     return res.status(200).send(book);
@@ -91,7 +78,6 @@ function deleteBook(req, res) {
 }
 
 module.exports = {
-  getBook,
   getBooks,
   createBook,
   replaceBook,
