@@ -4,7 +4,7 @@ const Book = require('../models/book');
 
 // Get book object
 function getBooks(req, res) {
-  // Finds all books in the database
+  // Finds all books in the database with those params
   Book.find(req.params, (error, books) => {
     if (error) return res.status(500).send({ error });
 
@@ -17,7 +17,7 @@ function getBook(req, res) {
   const { isbn } = req.params;
 
   // Finds the book with the ISBN provided
-  Book.findOne(isbn, (error, book) => {
+  Book.findOne({ isbn }, (error, book) => {
     if (error) return res.status(404).send({ message: 'No books found', error });
 
     return res.status(200).send(book);
@@ -39,8 +39,8 @@ function createBook(req, res) {
 
 // Replace the books information
 function replaceBook(req, res) {
-  const { title } = req.params;
-  const { isbn } = req.body;
+  const { title } = req.body;
+  const { isbn } = req.params;
   const { description } = req.body;
   const { author } = req.body;
   const { publicationDate } = req.body;
@@ -54,7 +54,7 @@ function replaceBook(req, res) {
   // Create the new book
   const bookReplacement = req.body;
 
-  Book.findOne(isbn, (err, book) => {
+  Book.findOne({ isbn }, (err, book) => {
     if (err) return res.status(404).send({ message: 'No book to replace found', err });
 
     // Replaces the book
@@ -71,7 +71,7 @@ function editBook(req, res) {
   const { isbn } = req.params;
 
   // Update the book
-  Book.findOneAndUpdate(isbn, req.body, { new: true }, (error, book) => {
+  Book.findOneAndUpdate({ isbn }, req.body, { new: true }, (error, book) => {
     if (error) return res.status(500).send({ error });
 
     return res.status(200).send({ message: 'Book updated', book });
