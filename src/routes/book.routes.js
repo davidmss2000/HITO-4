@@ -10,18 +10,25 @@ router.post('/', book.create);
 router.get('/', book.get);
 
 // Retrieve books by title
+router.get('/title/:title', book.getByField);
 
 // Retrieve books by isbn
+router.get('/isbn/:isbn', book.getByField);
 
 // Retrieve books by description
+router.get('/description/:description', book.getByField);
 
 // Retrieve books by author
+router.get('/author/:author', book.getByField);
 
 // Retrieve books by publicationDate
+router.get('/publicationDate/:publicationDate', book.getByField);
 
 // Retrieve books by publisher
+router.get('/publisher/:publisher', book.getByField);
 
 // Retrieve books by price
+router.get('/price/:price', book.getByField);
 
 // Replace an existing book with isbn
 router.put('/:isbn', book.replaceByIsbn);

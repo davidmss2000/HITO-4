@@ -81,10 +81,21 @@ function deleteByIsbn(req, res) {
   });
 }
 
+function getByField(req, res) {
+  const field = req.params;
+
+  Book.find(field).then((books) => {
+    res.status(200).send(books);
+  }).catch((err) => {
+    res.status(404).send({ message: 'No books found', err });
+  });
+}
+
 module.exports = {
   get,
   create,
   replaceByIsbn,
   editByIsbn,
   deleteByIsbn,
+  getByField,
 };
