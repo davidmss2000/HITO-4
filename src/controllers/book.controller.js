@@ -81,6 +81,7 @@ function deleteByIsbn(req, res) {
   });
 }
 
+// Retrieve books by each field
 function getByField(req, res) {
   const field = req.params;
 
